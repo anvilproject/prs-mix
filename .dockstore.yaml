@@ -1,0 +1,29 @@
+version: 1.2
+workflows:
+  - name: PrsScoring
+    subclass: WDL
+    primaryDescriptorPath: /scripts/PrsScoring.wdl
+    readMePath: /README.md
+    filters:
+      branches:
+        - /.*[a-zA-Z0-9].*/
+      tags:
+        - PrsMix_*
+  - name: PrsInputPrep
+    subclass: WDL
+    primaryDescriptorPath: /scripts/PrsInputPrep.wdl
+    readMePath: /README.md
+    filters:
+      branches:
+        - /.*[a-zA-Z0-9].*/
+      tags:
+        - PrsMix_*
+  - name: PrsModel
+    subclass: WDL
+    primaryDescriptorPath: /scripts/PrsModel.wdl
+    readMePath: /README.md
+    filters:
+      branches:
+        - /.*[a-zA-Z0-9].*/
+      tags:
+        - PrsMix_*
