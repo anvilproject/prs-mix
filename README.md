@@ -4,7 +4,7 @@ A polygenic risk score (PRS) summarizes the chance of developing a certain healt
 
 The PRS pipeline in this repo can calculate mix or single scores for multiple health conditions for many individuals. It will calculate the PRS for each provided variant weights file per health condition of interest. If given multiple variant weights files, it will compute the mix score for each health condition by finding the sum of weighted polygenic risk scores associated with the condition. Then, if desired, the PRS mix or single score can then be adjusted using a previously computed ancestry adjustment model and PCA.
 
-Inputs for the PRS pipeline have strict stipulations in order for the pipeline to run successfully. To faciliatate successful runs of the pipeline, we have created a WDL for input preparation and a WDL for training ancestry adjustment models that are also within this repo.
+Inputs for the PRS pipeline have strict stipulations in order for the pipeline to run successfully. To facilitate successful runs of the pipeline, we have created a WDL for input preparation and a WDL for training ancestry adjustment models that are also within this repo.
 
 ## Folder Structure
 
