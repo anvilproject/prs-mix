@@ -4,7 +4,7 @@ A polygenic risk score (PRS) summarizes the chance of developing a certain healt
 
 The PRS pipeline in this repo can calculate mix or single scores for multiple health conditions for many individuals. It will calculate the PRS for each provided variant weights file per health condition of interest. If given multiple variant weights files, it will compute the mix score for each health condition by finding the sum of weighted polygenic risk scores associated with the condition. Then, if desired, the PRS mix or single score can then be adjusted using a previously computed ancestry adjustment model and PCA.
 
-Inputs for the PRS pipeline have strict stipulations in order for the pipeline to run successfully. To facilitate successful runs of the pipeline, we have created a WDL for input preparation and a WDL for training ancestry adjustment models that are also within this repo.
+Inputs for the PRS pipeline have strict stipulations in order for the pipeline to run successfully. To faciliatate successful runs of the pipeline, we have created a WDL for input preparation and a WDL for training ancestry adjustment models that are also within this repo.
 
 ## Folder Structure
 
@@ -102,9 +102,8 @@ Below is a flowchart that outlines the workflow step-by-step:
 | Type        | Name                | Required | Description | Default Value |
 | :---------- | :------------------ | :------: | :---------- | :--- |
 | File        | input_vcf           | Yes      | VCF to score | |
-| Array[File] | model_manifests     | Yes      | Adjustment model manifest file from MakeAdjustmentModelWorkflow WDL | |
+| File | model_manifest     | Yes      | Adjustment model manifest file from PrsModel WDL | |
 | Boolean     | norename            | No       | If `true`, do not rename chromosomes to have chr prefix | false |
-| Boolean     | perform_adjustment  | No       | If `true`, use ancestry adjustment model to adjust scores | true |
 | File        | renaming_lookup     | No       | Mapping file for renaming chromosomes | "gs://lmm-reference-data/prsmix/reference/rename_chromosomes.tsv" |
 | String      | ubuntu_docker_image | No       | Ubuntu Docker image | "ubuntu:latest" |
 
@@ -112,9 +111,9 @@ Below is a flowchart that outlines the workflow step-by-step:
 
 | Type        | Name               | When   | Description |
 | :---------- | :----------------- | :----- | :---------- |
-| Array[File] | prs_raw_scores     | Always | PRS raw scores |
-| File        | prs_mix_raw_score  | If a score weights file exists in the model manifest | PRS mix raw scores |
-| File        | prs_adjusted_score | If perform_adjustment is `true` | PRS scores or mix scores adjusted with population models |
+| Array[File] | raw_scores     | Always | PRS raw scores |
+| File        | mix_score  | If a score weights file exists in the model manifest | PRS mix raw scores |
+| File        | adjusted_score | If perform_adjustment is `true` | PRS scores or mix scores adjusted with population models |
 
 ## References
 
