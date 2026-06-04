@@ -44,7 +44,7 @@ Input files for the PRS Input Preparation WDL include:
 | Boolean     | resuming         | No       | Whether this run is the resumption of an earlier run | false |
 | Boolean     | norename         | No       | If `true`, do not run `HelperTasks.RenameChromosomes*` tasks | false |
 | Array[File] | query_vcfs       | Yes      | Array of gz-compressed VCF files of the samples to be scored | |
-| String      | prs_docker_image | No       | Docker image equipped with PRS scripts | "us-central1-docker.pkg.dev/mgb-lmm-gcp-infrast-1651079146/mgbpmbiofx/prs:20250515" |
+| String      | prs_docker_image | No       | Docker image equipped with PRS scripts | |
 
 ### PRS Prep Output Parameters
 
@@ -104,7 +104,7 @@ Below is a flowchart that outlines the workflow step-by-step:
 | File        | input_vcf           | Yes      | VCF to score | |
 | File | model_manifest     | Yes      | Adjustment model manifest file from PrsModel WDL | |
 | Boolean     | norename            | No       | If `true`, do not rename chromosomes to have chr prefix | false |
-| File        | renaming_lookup     | No       | Mapping file for renaming chromosomes | "gs://lmm-reference-data/prsmix/reference/rename_chromosomes.tsv" |
+| File        | renaming_lookup     | No       | Mapping file for renaming chromosomes | |
 | String      | ubuntu_docker_image | No       | Ubuntu Docker image | "ubuntu:latest" |
 
 ### PRS Scoring Output Parameters
