@@ -1,10 +1,10 @@
 version 1.0
 
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/subwdls/RawScoreWorkflow.wdl" as RawScoreWorkflow
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/subwdls/MixScoreWorkflow.wdl" as MixScoreWorkflow
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/subwdls/RawScoreWorkflow.wdl" as RawScoreWorkflow
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/subwdls/MixScoreWorkflow.wdl" as MixScoreWorkflow
 import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/subwdls/AdjustScoreWorkflow.wdl" as AdjustScoreWorkflow
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/tasks/PRSStructs.wdl" as PRSStructs
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/tasks/HelperTasks.wdl" as HelperTasks
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/tasks/PRSStructs.wdl" as PRSStructs
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/tasks/HelperTasks.wdl" as HelperTasks
 
 workflow PrsScoringWorkflow {
     input {
