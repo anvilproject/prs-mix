@@ -1,7 +1,7 @@
 version 1.0
 
 import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/main_wdls/MakeMixModelWorkflow.wdl" as MixModelWorkflow
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/subwdls/MakeAdjustmentModelWorkflow.wdl" as SingleModelWorkflow
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/subwdls/MakeAdjustmentModelWorkflow.wdl" as SingleModelWorkflow
 import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/steps/Utilities.wdl" as Utilities
 
 workflow PrsModel {
