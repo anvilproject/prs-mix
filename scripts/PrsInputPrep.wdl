@@ -1,7 +1,7 @@
 version 1.0
 
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/tasks/HelperTasks.wdl" as HelperTasks
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/tasks/ScoringTasks.wdl" as ScoringTasks
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/tasks/HelperTasks.wdl" as HelperTasks
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/tasks/ScoringTasks.wdl" as ScoringTasks
 
 workflow PrsInputPrep {
   input {
