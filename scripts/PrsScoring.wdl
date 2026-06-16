@@ -11,7 +11,7 @@ workflow PrsScoringWorkflow {
         File input_vcf
         File model_manifest
         Boolean norename = false
-        File renaming_lookup
+        File? renaming_lookup
         Int? pca_memory
         String ubuntu_docker_image = "ubuntu:latest"
     }
@@ -25,7 +25,7 @@ workflow PrsScoringWorkflow {
             input_vcf = input_vcf,
             adjustment_model_manifest = model_manifest,
             norename = norename,
-            renaming_lookup = renaming_lookup
+            renaming_lookup = select_first([renaming_lookup])
     }
 
     if (defined(model_data.score_weights)) {
@@ -45,7 +45,7 @@ workflow PrsScoringWorkflow {
             prs_raw_scores = select_first([MixScores.prs_mix_raw_score, RawScores.prs_raw_scores[0]]),
             norename = norename,
             pca_memory = pca_memory,
-            renaming_lookup = renaming_lookup
+            renaming_lookup = select_first([renaming_lookup])
     }
 
 
