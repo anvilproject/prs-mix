@@ -9,7 +9,7 @@ workflow PrsInputPrep {
     File        pca_variants
     String      source
     String      target
-    Int         nbatches         = 500
+    Int         nbatches         = 1
     Boolean     norename         = false
     Array[File] query_vcfs
     String      prs_docker_image = "mgbpm/prs-anvil:20260612"
