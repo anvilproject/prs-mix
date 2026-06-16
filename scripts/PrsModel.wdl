@@ -1,8 +1,8 @@
 version 1.0
 
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/main_wdls/MakeMixModelWorkflow.wdl" as MixModelWorkflow
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/subwdls/MakeAdjustmentModelWorkflow.wdl" as SingleModelWorkflow
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/steps/Utilities.wdl" as Utilities
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/main_wdls/MakeMixModelWorkflow.wdl" as MixModelWorkflow
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/subwdls/MakeAdjustmentModelWorkflow.wdl" as SingleModelWorkflow
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/steps/Utilities.wdl" as Utilities
 
 workflow PrsModel {
     input {
@@ -13,6 +13,7 @@ workflow PrsModel {
         File query_file
         File? score_weights
         Boolean norename = false
+        File? rename
     }
 
     # Create mix model if multiple variant weights are provided and score weights are defined
@@ -25,7 +26,8 @@ workflow PrsModel {
                 reference_vcf = reference_vcf,
                 query_file = query_file,
                 score_weights = select_first([score_weights]),
-                norename = norename
+                norename = norename,
+                rename = select_first([rename])
         }
     }
 
@@ -40,6 +42,7 @@ workflow PrsModel {
                 query_file = query_file,
                 name = condition_name,
                 norename = norename,
+                rename = select_first([rename])
         }
     }
 

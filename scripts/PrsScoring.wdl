@@ -1,17 +1,18 @@
 version 1.0
 
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/subwdls/RawScoreWorkflow.wdl" as RawScoreWorkflow
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/subwdls/MixScoreWorkflow.wdl" as MixScoreWorkflow
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/subwdls/AdjustScoreWorkflow.wdl" as AdjustScoreWorkflow
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/tasks/PRSStructs.wdl" as PRSStructs
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/tasks/HelperTasks.wdl" as HelperTasks
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/subwdls/RawScoreWorkflow.wdl" as RawScoreWorkflow
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/subwdls/MixScoreWorkflow.wdl" as MixScoreWorkflow
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/subwdls/AdjustScoreWorkflow.wdl" as AdjustScoreWorkflow
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/tasks/PRSStructs.wdl" as PRSStructs
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/tasks/HelperTasks.wdl" as HelperTasks
 
 workflow PrsScoringWorkflow {
     input {
         File input_vcf
         File model_manifest
         Boolean norename = false
-        File renaming_lookup
+        File? renaming_lookup
+        Int? pca_memory
         String ubuntu_docker_image = "ubuntu:latest"
     }
 
@@ -24,7 +25,7 @@ workflow PrsScoringWorkflow {
             input_vcf = input_vcf,
             adjustment_model_manifest = model_manifest,
             norename = norename,
-            renaming_lookup = renaming_lookup
+            renaming_lookup = select_first([renaming_lookup])
     }
 
     if (defined(model_data.score_weights)) {
@@ -43,7 +44,8 @@ workflow PrsScoringWorkflow {
             adjustment_model_manifest = model_manifest,
             prs_raw_scores = select_first([MixScores.prs_mix_raw_score, RawScores.prs_raw_scores[0]]),
             norename = norename,
-            renaming_lookup = renaming_lookup
+            pca_memory = pca_memory,
+            renaming_lookup = select_first([renaming_lookup])
     }
 
 

@@ -1,7 +1,7 @@
 version 1.0
 
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/tasks/HelperTasks.wdl" as HelperTasks
-import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/main/workflows/prs/tasks/ScoringTasks.wdl" as ScoringTasks
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/tasks/HelperTasks.wdl" as HelperTasks
+import "https://raw.githubusercontent.com/mgbpm/biofx-workflows/refs/heads/feature/prs-anvil/no-biofx-deps/workflows/prs/tasks/ScoringTasks.wdl" as ScoringTasks
 
 workflow PrsInputPrep {
   input {
@@ -9,8 +9,9 @@ workflow PrsInputPrep {
     File        pca_variants
     String      source
     String      target
-    Int         nbatches         = 500
+    Int         nbatches         = 1
     Boolean     norename         = false
+    File?        rename
     Array[File] query_vcfs
     String      prs_docker_image = "mgbpm/prs-anvil:20260612"
   }
@@ -24,6 +25,7 @@ workflow PrsInputPrep {
         input:
             tsv        = weights
           , skipheader = true
+          , lookup     = select_first([rename])
       }
     }
 
@@ -31,6 +33,7 @@ workflow PrsInputPrep {
       input:
           tsv        = pca_variants
         , skipheader = false
+        , lookup     = select_first([rename])
     }
   }
 
@@ -117,7 +120,8 @@ workflow PrsInputPrep {
     if (! norename) {
       call HelperTasks.RenameChromosomesInVcf as RenameChromosomesInQueryVcf {
         input:
-            vcf = query_vcf
+            vcf    = query_vcf,
+            rename = select_first([rename])
       }
     }
 
